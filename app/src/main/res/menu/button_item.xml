@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="最新"
+        android:icon="@mipmap/new_item"
+        android:id="@+id/item_new"/>
+
+    <item android:title="电影"
+        android:icon="@mipmap/movie"
+        android:id="@+id/movie"/>
+
+    <item android:title="电视剧"
+        android:icon="@mipmap/tv"
+        android:id="@+id/tv"/>
+
+    <item android:title="动漫"
+        android:icon="@mipmap/dm"
+        android:id="@+id/dm"/>
+
+    <item android:title="我的"
+        android:icon="@mipmap/my"
+        android:id="@+id/my"/>
+
+</menu>

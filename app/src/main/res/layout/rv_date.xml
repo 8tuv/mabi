@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+   android:layout_gravity="center"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/image_tu"
+            android:layout_width="102dp"
+            android:layout_height="135dp"
+            android:scaleType="fitXY"
+            android:padding="1dp"/>
+        <TextView
+            android:id="@+id/vod_remarks"
+            android:background="#6D353434"
+            android:textColor="#fff"
+            android:textSize="13sp"
+            android:layout_alignBottom="@+id/image_tu"
+            android:layout_alignRight="@+id/image_tu"
+            android:text="最新"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:padding="1dp"
+        android:layout_above="@id/button_Navigation"
+        android:background="@drawable/buttom_shadow" />
+
+    <TextView
+        android:id="@+id/Tv_name"
+        android:layout_margin="1dp"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="文本"
+        android:textSize="18sp"/>
+
+</LinearLayout>
