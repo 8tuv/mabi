@@ -3,6 +3,7 @@ package com.ying.qixu.adpter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -43,6 +44,8 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
         holder.mItemName.setText(data.getVod_name());
         holder.vod_remarks.setText(data.getVod_remarks());
         Glide.with(context).load(data.getVod_pic()).into(holder.mImageview);
+
+
     }
 
     @Override

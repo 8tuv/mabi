@@ -20,6 +20,7 @@ import com.ying.qixu.adpter.NewsRecyclerAdapter;
 import com.ying.qixu.util.HttpUtil;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,13 +32,15 @@ import okhttp3.Response;
 
 import static android.support.constraint.Constraints.TAG;
 import static android.util.Log.e;
+import static android.util.Log.getStackTraceString;
 
 public class TvContentFragment extends BaseFragment {
     public RecyclerView mCollectRecyclerView;//定义RecyclerView
     //自定义recyclerveiw的适配器
     private NewsRecyclerAdapter newsRecyclerAdapter;
     public List<newsBean.ListBean> ListsBeanDate = new ArrayList<newsBean.ListBean>();
-    private String Url= "http://m.qixu8.cn/api.php/provide/vod/?ac=list&t=13";
+    private String Url= "http://m.qixu8.cn/api.php/provide/vod/?ac=list&t=";
+
     private RecyclerView tvContent;
     private View view;//定义view用来设置fragment的layout
     private String name;
@@ -56,8 +59,10 @@ public class TvContentFragment extends BaseFragment {
 
     @Override
     protected void loadData() {
-
-        HttpUtil.SendOkHttpRequest(Url, new Callback() {
+        Bundle bundle = getArguments();
+        String string = bundle.getString("name");
+        String  Path =Url +string;
+        HttpUtil.SendOkHttpRequest(Path, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e(TAG, "onFailure: 失败" );
@@ -107,6 +112,7 @@ public class TvContentFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_tab_content, container, false);
         tvContent =view.findViewById(R.id.rv_tab_date);
+
         loadData();
         //tvContent.setText(name);
         return view;

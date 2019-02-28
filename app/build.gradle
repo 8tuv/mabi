@@ -38,4 +38,31 @@ dependencies {
     implementation 'cn.jzvd:jiaozivideoplayer:6.4.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.jakewharton:butterknife:8.1.0'
+
+    implementation 'com.alimama.tunion.sdk:tuniontradesdk:0.3.2@aar'
+    //电商SDK
+    implementation 'com.alibaba.sdk.android:alibc_trade_common:3.1.1.210'
+    implementation 'com.alibaba.sdk.android:alibc_trade_biz:3.1.1.210'
+    implementation 'com.alibaba.sdk.android:alibc_trade_sdk:3.1.1.210'
+    //UT
+    implementation 'com.taobao.android:utdid4all:1.1.5.3_proguard@jar'
+    implementation 'com.alibaba.mtl:app-monitor-sdk:2.5.1.3_for_bc_proguard@jar'
+    //安全基础
+    implementation 'com.taobao.android:securityguardaar3:5.1.81@aar'
+    //Mtop网关
+    implementation 'com.taobao.android:mtopsdk_allinone_open:1.2.2.4@jar'
+    //登陆
+    implementation 'com.ali.auth.sdk:alibabauth_core:1.4.3@jar'
+    implementation 'com.ali.auth.sdk:alibabauth_ui:1.4.3@aar'
+    implementation 'com.ali.auth.sdk:alibabauth_ext:1.4.3@jar'
+    //applink
+    implementation 'com.alibaba.sdk.android:alibc_link_partner:1.1.0.6'
+
+
+
+
+
+
+
+
 }

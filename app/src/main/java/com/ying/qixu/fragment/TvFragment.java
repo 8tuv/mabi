@@ -27,7 +27,7 @@ public class TvFragment extends BaseFragment {
    private View view;//定义view用来设置fragment的layout
     private TvContentFragmentAdapter adapter;
     private List<String> names;
-
+//mainactivity 调用的
     public static TvFragment newInstance() {
         TvFragment fragment = new TvFragment();
         return fragment;

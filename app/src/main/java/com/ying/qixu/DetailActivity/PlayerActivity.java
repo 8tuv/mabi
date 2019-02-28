@@ -65,6 +65,9 @@ public class PlayerActivity extends AppCompatActivity {
         Intent intent =getIntent();
         int ids = intent.getIntExtra("ID",0);
         apiUrl = apiUrl+ids;
+
+        jzvdStd.setUp(null,"请先点击下方的剧集",Jzvd.SCREEN_WINDOW_NORMAL);
+
         HttpUtil.SendOkHttpRequest(apiUrl, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -77,6 +80,7 @@ public class PlayerActivity extends AppCompatActivity {
                 Gson gson  = new Gson();
                 DetailBean newsData =  gson.fromJson(responseText,DetailBean.class);
                 DetailBeanDate  = newsData.getList();
+
                 /*
                 * getVod_play_url  ： 播放地址
                 * getVod_name   ： 视频名字

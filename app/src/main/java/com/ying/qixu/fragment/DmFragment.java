@@ -3,6 +3,8 @@ package com.ying.qixu.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +18,7 @@ import com.ying.qixu.Bean.newsBean;
 import com.ying.qixu.DetailActivity.PlayerActivity;
 import com.ying.qixu.R;
 import com.ying.qixu.adpter.NewsRecyclerAdapter;
+import com.ying.qixu.adpter.TvContentFragmentAdapter;
 import com.ying.qixu.util.HttpUtil;
 
 import java.io.IOException;
@@ -30,28 +33,30 @@ import static android.support.constraint.Constraints.TAG;
 import static android.util.Log.e;
 
 public class DmFragment extends BaseFragment {
-    //定义以newsBean实体类为对象的数据集合
-    public List<newsBean.ListBean> ListsBeanDate = new ArrayList<newsBean.ListBean>();
-    private String Url= "http://m.qixu8.cn/api.php/provide/vod/?ac=list&t=21";
-    private View view;//定义view用来设置fragment的layout
-    public RecyclerView mCollectRecyclerView;//定义RecyclerView
-    //自定义recyclerveiw的适配器
-    private NewsRecyclerAdapter newsRecyclerAdapter;
+    private TabLayout tabLayout;
 
+    private ViewPager view_pager;
+    private View view;//定义view用来设置fragment的layout
+    private TvContentFragmentAdapter adapter;
+    private List<String> names;
+    //mainactivity 调用的
     public static DmFragment newInstance() {
-        com.ying.qixu.fragment.DmFragment fragment = new DmFragment();
+        DmFragment fragment = new DmFragment();
         return fragment;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_base, container,false);
-        //对recycleview进行配置
-        loadData();
-        //模拟数据
+        view = inflater.inflate(R.layout.fragment_other_tab, container, false);
+        tabLayout =view.findViewById(R.id.other_tab_layout);
+        view_pager =view.findViewById(R.id.other_view_pager);
+        //实际上是 通用的，不单单是TV栏目
+        adapter = new TvContentFragmentAdapter(getChildFragmentManager());
+        view_pager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(view_pager);
 
-
+        adapter.setList(names);
         return view;
     }
 
@@ -61,55 +66,20 @@ public class DmFragment extends BaseFragment {
     }
 
     @Override
-    protected void initData(Bundle savedInstanceState) {
-
+    protected void loadData() {
 
     }
 
     @Override
-    protected void loadData() {
-        HttpUtil.SendOkHttpRequest(Url, new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e(TAG, "onFailure: 失败");
-            }
+    public void onDestroyView() {
+        super.onDestroyView();
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-//okHttp 接受到的数据
-                String responseText = response.body().string();
-                Gson gson = new Gson();
-                newsBean newsData = gson.fromJson(responseText, newsBean.class);
-                ListsBeanDate = newsData.getList();
-                //获取RecyclerView
-                mCollectRecyclerView = (RecyclerView) view.findViewById(R.id.rv_date);
-                //创建adapter
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        newsRecyclerAdapter = new NewsRecyclerAdapter(getActivity(), (ArrayList<newsBean.ListBean>) ListsBeanDate);
-                        //给RecyclerView设置adapter
-                        mCollectRecyclerView.setAdapter(newsRecyclerAdapter);
-                        //设置layoutManager,可以设置显示效果，是线性布局、grid布局，还是瀑布流布局
-                        //参数是：上下文、列表方向（横向还是纵向）、是否倒叙
-                        mCollectRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-                        //设置item的分割线
-                        mCollectRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
-                        //RecyclerView中没有item的监听事件，需要自己在适配器中写一个监听事件的接口。参数根据自定义
-                        newsRecyclerAdapter.setOnItemClickListener(new NewsRecyclerAdapter.OnItemClickListener() {
-                            @Override
-                            public void OnItemClick(View view, newsBean.ListBean data) {
-                                //此处进行监听事件的业务处理
-                                Intent intent = new Intent();
-                                intent.setClass(getContext(), PlayerActivity.class);
-                                intent.putExtra("ID", data.getVod_id());
-                                startActivity(intent);
-                            }
-                        });
-                    }
-                });
-
-            }
-        });
+    }
+    protected void initData(Bundle savedInstanceState) {
+        names = new ArrayList<>();
+        names.add("国产动漫");
+        names.add("日本动漫");
+        names.add("单集动漫");  //id 20--23
+        names.add("剧场版");
     }
     }
