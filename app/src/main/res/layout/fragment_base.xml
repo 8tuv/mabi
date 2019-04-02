@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.scwang.smartrefresh.layout.SmartRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
-
-<android.support.v7.widget.RecyclerView
-    android:id="@+id/rv_date"
+    >
+<RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    />
+    android:layout_height="match_parent">
+    <com.youth.banner.Banner
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="153dp"/>
 
+    <TextView
+        android:id="@+id/tv_gengxin"
+        android:layout_below="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/tv_gengxin"
+        android:id="@+id/rv_date"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 </RelativeLayout>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

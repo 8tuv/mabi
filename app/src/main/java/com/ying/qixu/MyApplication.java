@@ -1,18 +1,15 @@
 package com.ying.qixu;
 
+import android.Manifest;
 import android.app.Application;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
 import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback;
-import com.alibaba.baichuan.android.trade.model.AlibcShowParams;
-import com.alibaba.baichuan.trade.biz.AlibcTradeBiz;
-import com.alibaba.baichuan.trade.common.AlibcTradeCommon;
-import com.alibaba.baichuan.trade.common.adapter.ut.AlibcUserTracker;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
 
 public class MyApplication extends Application {
     public static MyApplication application = null;
@@ -20,6 +17,9 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //友盟
+        UMConfigure.init(this,UMConfigure.DEVICE_TYPE_PHONE,"5c77c98c61f564b0b300093a");
+        MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);
 
         application = this;
 

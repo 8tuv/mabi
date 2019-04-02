@@ -23,6 +23,7 @@ import com.ying.qixu.fragment.MyFragment;
 import com.ying.qixu.fragment.TvFragment;
 
 public class MainActivity extends AppCompatActivity {
+
     private ViewPager viewPager;
     private MenuItem menuItem;
     private  Toolbar toolbar;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         toolbar = findViewById(R.id.tb_header);
         setSupportActionBar(toolbar);
 

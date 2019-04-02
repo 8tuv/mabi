@@ -79,7 +79,6 @@ public class DmFragment extends BaseFragment {
         names = new ArrayList<>();
         names.add("国产动漫");
         names.add("日本动漫");
-        names.add("单集动漫");  //id 20--23
-        names.add("剧场版");
+
     }
     }

@@ -2,31 +2,24 @@ package com.ying.qixu.DetailActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
-import android.widget.GridView;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.tencent.connect.common.Constants;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
 import com.ying.qixu.Bean.DetailBean;
 import com.ying.qixu.Bean.GridViewBean;
-import com.ying.qixu.Bean.newsBean;
 import com.ying.qixu.R;
 import com.ying.qixu.adpter.DetailAdapter;
-import com.ying.qixu.adpter.NewsRecyclerAdapter;
 import com.ying.qixu.util.HttpUtil;
 
 import java.io.IOException;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,15 +29,15 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-import static android.app.PendingIntent.getActivity;
-import static android.support.constraint.Constraints.TAG;
+import static android.content.ContentValues.TAG;
+
 import static android.util.Log.e;
 
 
 public class PlayerActivity extends AppCompatActivity {
     public List<GridViewBean> gridViewBeans = new ArrayList<>();
     private TextView tv_content;  //简介控件
-
+    private String TAG ="PlayActivity";
     private String content;//简介内容
     //自定义recyclerveiw的适配器
     private DetailAdapter detailAdapter;
@@ -55,18 +48,20 @@ public class PlayerActivity extends AppCompatActivity {
      private String[] tem;
      private String Ress;
     private String name;
+    private TextView TV_name;
+   private String temp[];
+    private  JzvdStd jzvdStd;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
-        JzvdStd jzvdStd = (JzvdStd)findViewById(R.id.Player);
+        jzvdStd = (JzvdStd)findViewById(R.id.Player);
         tv_content = findViewById(R.id.Tv_content);
+        TV_name =findViewById(R.id.TV_name);
         mCollectRecyclerView = findViewById(R.id.rv_ji);
         Intent intent =getIntent();
         int ids = intent.getIntExtra("ID",0);
         apiUrl = apiUrl+ids;
-
-        jzvdStd.setUp(null,"请先点击下方的剧集",Jzvd.SCREEN_WINDOW_NORMAL);
 
         HttpUtil.SendOkHttpRequest(apiUrl, new Callback() {
             @Override
@@ -102,26 +97,28 @@ public class PlayerActivity extends AppCompatActivity {
 
                 tem = url.split("#");
                 for (int i =0;i<tem.length;i++){
-                    String temp[] = tem[i].split("[$]");
+                    temp = tem[i].split("[$]");
                     GridViewBean  gridViewBean = new GridViewBean();
                     gridViewBean.setJishu(temp[0]);
                     gridViewBean.setLianjie(temp[1]);
                     gridViewBeans.add(gridViewBean);
                 }
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                        tv_content.setText("\t\t"+content);
-
-                       //jzvdStd.setUp(tem[0],name,Jzvd.SCREEN_WINDOW_NORMAL);
+                       TV_name.setText(name);
+                       jzvdStd.setUp(temp[1],temp[0],Jzvd.SCREEN_WINDOW_NORMAL);
                        detailAdapter = new DetailAdapter(PlayerActivity.this, (ArrayList<GridViewBean>) gridViewBeans);
                        mCollectRecyclerView.setAdapter(detailAdapter);
-                       mCollectRecyclerView.setLayoutManager(new GridLayoutManager(PlayerActivity.this,5));
+                       mCollectRecyclerView.setLayoutManager(new GridLayoutManager(PlayerActivity.this,6));
                        detailAdapter.setOnItemClickListener(new DetailAdapter.OnItemClickListener() {
                            @Override
                            public void OnItemClick(View view, GridViewBean data) {
                                jzvdStd.setUp(data.getLianjie(),name+"_"+data.getJishu(),Jzvd.SCREEN_WINDOW_NORMAL);
                                jzvdStd.startButton.performClick();
+
                            }
                        });
                         }
@@ -130,10 +127,6 @@ public class PlayerActivity extends AppCompatActivity {
                 }
 
         });
-
-       /*
-*/
-
 
 
     }
@@ -148,5 +141,7 @@ public class PlayerActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Jzvd.releaseAllVideos();
-}}
+}
+
+}
 

@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
+import com.bumptech.glide.RequestBuilder;
 import com.ying.qixu.Bean.newsBean;
 import com.ying.qixu.R;
 
@@ -43,7 +45,8 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
         newsBean.ListBean data = newsBeanList.get(position);
         holder.mItemName.setText(data.getVod_name());
         holder.vod_remarks.setText(data.getVod_remarks());
-        Glide.with(context).load(data.getVod_pic()).into(holder.mImageview);
+
+        Glide.with(context).load(data.getVod_pic()).error(R.mipmap.null_data).into(holder.mImageview);
 
 
     }

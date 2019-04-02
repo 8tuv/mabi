@@ -15,9 +15,7 @@ import com.ying.qixu.adpter.TvContentFragmentAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
+
 
 public class TvFragment extends BaseFragment {
 
